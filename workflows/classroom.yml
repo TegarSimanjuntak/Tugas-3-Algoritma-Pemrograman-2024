@@ -1,0 +1,128 @@
+name: Autograding Tests
+'on': [push]
+permissions:
+  checks: write
+  actions: read
+  contents: read
+jobs:
+  run-autograding-tests:
+    runs-on: ubuntu-latest
+    if: github.actor != 'github-classroom[bot]'
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Lat 1 - Test 1
+      id: lat-1-test-1
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Lat 1 - Test 1
+        setup-command: ''
+        command: g++ latihan_1.cpp -o latihan_1_1 && ./latihan_1_1
+        input: "5"
+        expected-output: |-
+          ***
+          **
+          *
+        comparison-method: exact
+        timeout: 1
+    - name: Lat 1 - Test 2
+      id: lat-1-test-2
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Lat 1 - Test 2
+        setup-command: ''
+        command: g++ latihan_1.cpp -o latihan_1_2 && ./latihan_1_2
+        input: '3'
+        expected-output: |-
+          **
+          *
+        comparison-method: exact
+        timeout: 1
+    - name: Lat 2 - Test 1
+      id: lat-2-test-1
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Lat 2 - Test 1
+        setup-command: ''
+        command: g++ latihan_2.cpp -o latihan_2_1 && ./latihan_2_1
+        input: "5"
+        expected-output: 120
+        comparison-method: exact
+        timeout: 1
+    - name: Lat 2 - Test 2
+      id: lat-2-test-2
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Lat 2 - Test 2
+        setup-command: ''
+        command: g++ latihan_2.cpp -o latihan_2_2 && ./latihan_2_2
+        input: 3
+        expected-output: 6
+        comparison-method: exact
+        timeout: 1
+    - name: Tugas 1 - Test 1
+      id: tugas-1-test-1
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Tugas 1 - Test 1
+        setup-command: ''
+        command: g++ tugas_1.cpp -o tugas_1_1 && ./tugas_1_1
+        input: '5'
+        expected-output: |-
+                  1
+                1 2 1
+              1 2 3 2 1
+            1 2 3 4 3 2 1
+          1 2 3 4 5 4 3 2 1
+        comparison-method: exact
+        timeout: 1
+    - name: Tugas 1 - Test 2
+      id: tugas-1-test-2
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Tugas 1 - Test 2
+        setup-command: ''
+        command: g++ tugas_1.cpp -o tugas_1_2 && ./tugas_1_2
+        input: '3'
+        expected-output: |-
+              1
+            1 2 1
+          1 2 3 2 1
+        comparison-method: exact
+        timeout: 1
+    - name: Tugas 2 - Test 1
+      id: tugas-2-test-1
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Tugas 2 - Test 1
+        setup-command: ''
+        command: g++ tugas_2.cpp -o tugas_2_1 && ./tugas_2_1
+        input: '20'
+        expected-output: 19 17 13 11 7 5 3 2
+        comparison-method: exact
+        timeout: 1
+    - name: Tugas 2 - Test 2
+      id: tugas-2-test-2
+      uses: classroom-resources/autograding-io-grader@v1
+      with:
+        test-name: Tugas 2 - Test 2
+        setup-command: ''
+        command: g++ tugas_2.cpp -o tugas_2_2 && ./tugas_2_2
+        input: '30'
+        expected-output: 29 23 19 17 13 11 7 5 3 2
+        comparison-method: exact
+        timeout: 1
+    
+    - name: Autograding Reporter
+      uses: classroom-resources/autograding-grading-reporter@v1
+      env:
+        LAT-1-TEST-1_RESULTS: "${{steps.lat-1-test-1.outputs.result}}"
+        LAT-1-TEST-2_RESULTS: "${{steps.lat-1-test-2.outputs.result}}"
+        LAT-2-TEST-1_RESULTS: "${{steps.lat-2-test-1.outputs.result}}"
+        LAT-2-TEST-2_RESULTS: "${{steps.lat-2-test-2.outputs.result}}"
+        TUGAS-1-TEST-1_RESULTS: "${{steps.tugas-1-test-1.outputs.result}}"
+        TUGAS-1-TEST-2_RESULTS: "${{steps.tugas-1-test-2.outputs.result}}"
+        TUGAS-2-TEST-1_RESULTS: "${{steps.tugas-2-test-1.outputs.result}}"
+        TUGAS-2-TEST-2_RESULTS: "${{steps.tugas-2-test-2.outputs.result}}"
+      with:
+        runners: lat-1-test-1,lat-1-test-2,lat-2-test-1,lat-2-test-2,tugas-1-test-1,tugas-1-test-2,tugas-2-test-1,tugas-2-test-2
