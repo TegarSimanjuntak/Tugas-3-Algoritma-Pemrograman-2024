@@ -18,7 +18,7 @@ jobs:
         test-name: Lat 1 - Test 1
         setup-command: ''
         command: g++ latihan_1.cpp -o latihan_1_1 && ./latihan_1_1
-        input: "5"
+        input: "3"
         expected-output: |-
           ***
           **
@@ -32,7 +32,7 @@ jobs:
         test-name: Lat 1 - Test 2
         setup-command: ''
         command: g++ latihan_1.cpp -o latihan_1_2 && ./latihan_1_2
-        input: '3'
+        input: '2'
         expected-output: |-
           **
           *

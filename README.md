@@ -36,7 +36,7 @@ Buatlah program dalam bahasa C++ yang meminta input sebuah angka `N`. Program te
 Input 1 :
 
 ```  
-5
+3
 ```
 
 Output 1 :
@@ -49,7 +49,7 @@ Output 1 :
 Input 2 :
 
 ```  
-3
+2
 ```
 
 Output 2 :
